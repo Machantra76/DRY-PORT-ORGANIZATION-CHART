@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>រចនាសម្ព័ន្ធស្ថាប័នឃ្លាំងស្ងួត - Dry Port Organization Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --accent-color: #00c6ff;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-sub: #555555;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Kantumruy Pro', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        header p {
+            margin: 8px 0 0 0;
+            font-size: 15px;
+            color: #dbeafe;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            border-top: 5px solid var(--secondary-color);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px -3px rgba(0, 0, 0, 0.1);
+            border-top-color: var(--accent-color);
+        }
+
+        .card-header {
+            padding: 20px 20px 10px 20px;
+            border-bottom: 1px solid var(--border-color);
+            background-color: #fafbfc;
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .card-header .eng-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 4px;
+        }
+
+        .card-body {
+            padding: 15px 20px 20px 20px;
+            flex-grow: 1;
+        }
+
+        .role-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .role-item {
+            display: block;
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            padding: 10px 14px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .role-item:hover {
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            color: #ffffff;
+            border-color: transparent;
+            transform: translateX(4px);
+            box-shadow: 0 4px 10px rgba(0, 114, 255, 0.3);
+        }
+
+        .role-item:hover .role-km, 
+        .role-item:hover .role-en {
+            color: #ffffff;
+        }
+
+        .role-km {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .role-en {
+            display: block;
+            font-size: 12px;
+            color: #64748b;
+            margin-top: 2px;
+            text-transform: uppercase;
+        }
+
+        .loading {
+            text-align: center;
+            font-size: 18px;
+            color: var(--text-sub);
+            grid-column: 1 / -1;
+            padding: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>រចនាសម្ព័ន្ធស្ថាប័នឃ្លាំងស្ងួត</h1>
+        <p>DRY PORT ORGANIZATION CHART & WORKFLOW DASHBOARD</p>
+    </header>
+
+    <div class="container">
+        <div id="dashboard" class="grid-container">
+            <div class="loading">កំពុងទាញយកទិន្នន័យ... (Loading data...)</div>
+        </div>
+    </div>
+
+    <script>
+        const englishTitles = {
+            "HR_ADMIN": "HR & Administration Department",
+            "ACC_FIN": "Accounting & Finance Department",
+            "TRANSPORT": "Transport Department",
+            "CONTAINER_MGT": "Container Management Department",
+            "TECH_STUFFING": "Technical & Stuffing/Unstuffing Department",
+            "IT_SYSTEMS": "IT & Systems Department",
+            "CUSTOMER_SVC": "Customer Service Department",
+            "FACILITIES": "Documentation & General Management"
+        };
+
+        const roleDetails = {
+            // ធនធានមនុស្ស & រដ្ឋបាល
+            "វត្តមាន ចេញ/ចូល": { en: "Staff Attendance Check-in / Check-out", url: "/views/hr-in-out.html" },
+            "ទ្រព្យសម្បត្តិ/ស្តុក និងការគ្រប់គ្រង សារពើភណ្ឌ": { en: "Asset, Stock & Inventory Management", url: "/views/hr-asset.html" },
+            "ការជ្រើសរើសបុគ្គលិក & ការបណ្តុះបណ្តាល": { en: "HR Recruitment & Training", url: "/views/hr-management.html" },
+            "ប្រាក់បៀវត្សរ៍ - ដំណើរការប្រាក់ខែ & អត្ថប្រយោជន៍": { en: "Payroll Processing & Benefits", url: "/views/payroll.html" },
+            
+            // គណនេយ្យ & ហិរញ្ញវត្ថុ
+            "គណនេយ្យប្រាក់ចំណូល": { en: "Revenue Accounting", url: "/views/acc-revenue.html" },
+            "គណនេយ្យទទួល": { en: "Accounts Receivable", url: "/views/acc-receive.html" },
+            "របាយការណ៍ហិរញ្ញវត្ថុ": { en: "Financial Reporting", url: "/views/acc-finance.html" },
+            "ការគ្រប់គ្រងថវិកា / ចំណាយ": { en: "Budget & Expense Control", url: "/views/acc-control.html" },
+
+            // ផ្នែកដឹកជញ្ជូន
+            "ការចាត់ចែងរថយន្ត & ដឹកជញ្ជូន": { en: "Fleet & Transport Dispatch", url: "/views/transport-fleet.html" },
+            "ការគ្រប់គ្រងអ្នកបើកបរ": { en: "Driver Management", url: "/views/transport-drivers.html" },
+            "ការគ្រប់គ្រងប្រេងឥន្ធនៈ / ការថែទាំ": { en: "Fuel & Maintenance Management", url: "/views/transport-maintenance.html" },
+            "ការរៀបចំផែនការដឹកជញ្ជូនទំនិញ": { en: "Cargo Transport Planning", url: "/views/transport-planning.html" },
+
+            // ផ្នែកគ្រប់គ្រងកុងតឺន័រ
+            "ការត្រួតពិនិត្យកុងតឺន័រខូច": { en: "Damaged Container Inspection", url: "/views/container-damage.html" },
+            "ការគ្រប់គ្រងទីតាំងកុងតឺន័រ": { en: "Container Yard Location Management", url: "/views/container-yard.html" },
+            "ការថែទាំ និងជួសជុល": { en: "Maintenance & Repair (M&R)", url: "/views/container-stock.html" },
+            "ការចេញកុងតឺន័រវិញ": { en: "Container Gate-Out", url: "/views/container-gateout.html" },
+
+            // ផ្នែកត្រួតពិនិត្យទីលានកុងតឺន័រ
+            "ប្រតិបត្តិការនៅទីលាន": { en: "Yard Operations", url: "/views/tech-stuffing.html" },
+            "ការចូល / ចេញទំនិញ": { en: "Cargo Gate-In / Gate-Out", url: "/views/tech-unstuffing.html" },
+            "ក្រុមសន្តិសុខ": { en: "Security Guard Team", url: "/views/tech-safety.html" },
+
+            // ផ្នែកព័ត៌មានវិទ្យា & ប្រព័ន្ធ
+            "ប្រព័ន្ធ WMS / OMS": { en: "WMS & OMS Systems", url: "/views/it-wms.html" },
+            "ប្រព័ន្ធ CCTV & បណ្តាញ": { en: "CCTV & Network Infrastructure", url: "/views/it-cctv.html" },
+            "ការគ្រប់គ្រងទិន្នន័យ": { en: "Data Management & Security", url: "/views/it-data.html" },
+
+            // ផ្នែកសេវាកម្មអតិថិជន
+            "ទំនាក់ទំនងជាមួយអតិថិជន": { en: "Customer Relations", url: "/views/cs-relations.html" },
+            "ការដោះស្រាយបញ្ហា / ការតវ៉ា": { en: "Dispute & Complaint Resolution", url: "/views/cs-complaints.html" },
+            "ជំនួយការផ្នែកស្វែងរកប្រភព": { en: "Sourcing & General Support", url: "/views/cs-support.html" },
+
+            // ប្រធានផ្នែកសម្ភារឯកសារ
+            "ការគ្រប់គ្រងឯកសារ": { en: "Document Management", url: "/views/doc-management.html" },
+            "ការគ្រប់គ្រងបញ្ចូលទិន័យប្រព័ន្ធគយ": { en: "Customs System Data Entry Management", url: "/views/doc-customs.html" },
+            "អ្នកកាន់ឯកសារ": { en: "Document Controller / Handler", url: "/views/doc-handler.html" }
+        };
+
+        fetch('/api/departments')
+            .then(response => response.json())
+            .then(data => {
+                const departments = data.dry_port_project.departments;
+                const dashboardContainer = document.getElementById('dashboard');
+                dashboardContainer.innerHTML = '';
+
+                departments.forEach(dept => {
+                    let engName = englishTitles[dept.id] || "Department";
+                    
+                    let rolesHtml = dept.roles.map(role => {
+                        let info = roleDetails[role] || { en: "Workflow Item", url: "#" };
+                        return `
+                            <li>
+                                <a href="${info.url}" class="role-item">
+                                    <span class="role-km">${role}</span>
+                                    <span class="role-en">${info.en}</span>
+                                </a>
+                            </li>
+                        `;
+                    }).join('');
+                    
+                    let card = `
+                        <div class="card">
+                            <div class="card-header">
+                                <h3>${dept.name}</h3>
+                                <div class="eng-title">${engName}</div>
+                            </div>
+                            <div class="card-body">
+                                <ul class="role-list">${rolesHtml}</ul>
+                            </div>
+                        </div>
+                    `;
+                    dashboardContainer.innerHTML += card;
+                });
+            })
+            .catch(error => {
+                document.getElementById('dashboard').innerHTML = '<div class="loading" style="color: red;">មិនអាចទាញយកទិន្នន័យបានទេ! (Error loading data)</div>';
+                console.error('Error:', error);
+            });
+    </script>
+
+</body>
+</html>
