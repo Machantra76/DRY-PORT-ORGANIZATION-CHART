@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ការជ្រើសរើសបុគ្គលិក & ការបណ្តុះបណ្តាល - HR Recruitment & Training</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #1e3c72;
+            --secondary-color: #2a5298;
+            --accent-color: #00c6ff;
+            --bg-color: #f0f4f8;
+            --card-bg: #ffffff;
+            --text-main: #333333;
+            --text-sub: #555555;
+            --border-color: #e2e8f0;
+        }
+
+        body {
+            font-family: 'Kantumruy Pro', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        header p {
+            margin: 5px 0 0 0;
+            font-size: 14px;
+            color: #dbeafe;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-bottom: 20px;
+            padding: 8px 16px;
+            background: #ffffff;
+            color: var(--primary-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--primary-color);
+            color: #ffffff;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+            border-top: 4px solid var(--secondary-color);
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: var(--primary-color);
+            font-size: 18px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 14px;
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: var(--text-sub);
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            font-family: 'Kantumruy Pro', sans-serif;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        /* រចនាប៊ូតុងថ្មីឱ្យមានអក្សរពីរភាសា ស្អាត និងទាក់ទាញ */
+        .btn-submit {
+            background: linear-gradient(135deg, #0072ff, #00c6ff);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 10px rgba(0, 114, 255, 0.2);
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(0, 114, 255, 0.35);
+            opacity: 0.95;
+        }
+
+        .btn-text-km {
+            display: block;
+            font-size: 15px;
+            font-weight: 700;
+        }
+
+        .btn-text-en {
+            display: block;
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: #e0f2fe;
+            margin-top: 2px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        table th, table td {
+            padding: 12px 10px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        table th {
+            background-color: #f8fafc;
+            color: var(--primary-color);
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>ការជ្រើសរើសបុគ្គលិក & ការបណ្តុះបណ្តាល</h1>
+        <p>HR Recruitment & Training Management</p>
+    </header>
+
+    <div class="container">
+        <a href="/" class="back-btn">⬅️ ត្រឡប់ទៅទំព័រដើម (Dashboard)</a>
+
+        <div class="content-grid">
+            <!-- ផ្នែកបង្កើតតំណែងការងារថ្មី -->
+            <div class="card">
+                <h3>📋 បង្កើតតំណែងការងារថ្មី (Job Vacancy)</h3>
+                <div class="form-group">
+                    <label>ឈ្មោះតំណែង (Job Title)</label>
+                    <input type="text" id="jobTitle" placeholder="ឧ. មន្ត្រីផ្នែកដឹកជញ្ជូន">
+                </div>
+                <div class="form-group">
+                    <label>ផ្នែក (Department)</label>
+                    <select id="jobDept">
+                        <option>ធនធានមនុស្ស & រដ្ឋបាល</option>
+                        <option>គណនេយ្យ & ហិរញ្ញវត្ថុ</option>
+                        <option>ផ្នែកដឹកជញ្ជូន</option>
+                        <option>ផ្នែកគ្រប់គ្រងកុងតឺន័រ</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>ចំនួនត្រូវការ (Quantity)</label>
+                    <input type="number" id="jobQty" placeholder="ឧ. ២">
+                </div>
+                <button type="button" class="btn-submit" onclick="addJob()">
+                    <span class="btn-text-km">រក្សាទុកតំណែងការងារ</span>
+                    <span class="btn-text-en">Save Job Vacancy</span>
+                </button>
+            </div>
+
+            <!-- ផ្នែកផែនការបណ្តុះបណ្តាល -->
+            <div class="card">
+                <h3>🎓 ផែនការបណ្តុះបណ្តាលបុគ្គលិក (Training Schedule)</h3>
+                <div class="form-group">
+                    <label>ប្រធានបទបណ្តុះបណ្តាល (Training Topic)</label>
+                    <input type="text" id="trainTopic" placeholder="ឧ. សុវត្ថិភាពការងារក្នុងឃ្លាំង">
+                </div>
+                <div class="form-group">
+                    <label>កាលបរិច្ឆេទ (Date)</label>
+                    <input type="date" id="trainDate">
+                </div>
+                <div class="form-group">
+                    <label>ស្ថានភាព (Status)</label>
+                    <input type="text" id="trainStatus" value="គ្រោងទុក (Scheduled)" readonly style="background-color: #f8fafc;">
+                </div>
+                <button type="button" class="btn-submit" onclick="addTraining()">
+                    <span class="btn-text-km">កត់ត្រាការបណ្តុះបណ្តាល</span>
+                    <span class="btn-text-en">Record Training Schedule</span>
+                </button>
+            </div>
+        </div>
+
+        <!-- បញ្ជីមុខតំណែង និងស្ថានភាពជ្រើសរើស -->
+        <div class="card" style="margin-top: 24px;">
+            <h3>📊 បញ្ជីមុខតំណែង និងស្ថានភាពជ្រើសរើសបច្ចុប្បន្ន</h3>
+            <table id="jobTable">
+                <thead>
+                    <tr>
+                        <th>ល.រ</th>
+                        <th>តំណែងការងារ</th>
+                        <th>ផ្នែក</th>
+                        <th>ចំនួនត្រូវការ</th>
+                        <th>ស្ថានភាព</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>អ្នកគ្រប់គ្រងកុងតឺន័រ</td>
+                        <td>ផ្នែកគ្រប់គ្រងកុងតឺន័រ</td>
+                        <td>1 នាក់</td>
+                        <td><span style="color: #2563eb; font-weight: 600;">កំពុងស្វែងរក</span></td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>បុគ្គលិកផ្នែកគណនេយ្យ</td>
+                        <td>គណនេយ្យ & ហិរញ្ញវត្ថុ</td>
+                        <td>2 នាក់</td>
+                        <td><span style="color: #16a34a; font-weight: 600;">បានទទួលយក</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        function addJob() {
+            let title = document.getElementById('jobTitle').value;
+            let dept = document.getElementById('jobDept').value;
+            let qty = document.getElementById('jobQty').value;
+
+            if(!title || !qty) {
+                alert('សូមបំពេញឈ្មោះតំណែង និងចំនួនឱ្យបានត្រឹមត្រូវ!');
+                return;
+            }
+
+            let table = document.getElementById('jobTable').getElementsByTagName('tbody')[0];
+            let rowCount = table.rows.length + 1;
+            
+            let newRow = table.insertRow();
+            newRow.innerHTML = `
+                <td>${rowCount}</td>
+                <td>${title}</td>
+                <td>${dept}</td>
+                <td>${qty} នាក់</td>
+                <td><span style="color: #2563eb; font-weight: 600;">កំពុងស្វែងរក</span></td>
+            `;
+
+            // Clear form
+            document.getElementById('jobTitle').value = '';
+            document.getElementById('jobQty').value = '';
+            alert('បានរក្សាទុកតំណែងការងារថ្មីដោយជោគជ័យ!');
+        }
+
+        function addTraining() {
+            let topic = document.getElementById('trainTopic').value;
+            let date = document.getElementById('trainDate').value;
+
+            if(!topic || !date) {
+                alert('សូមបញ្ចូលប្រធានបទ និងកាលបរិច្ឆេទបណ្តុះបណ្តាល!');
+                return;
+            }
+
+            alert('បានកត់ត្រាផែនការបណ្តុះបណ្តាលសម្រាប់ថ្ងៃទី ' + date + ' ដោយជោគជ័យ!');
+            document.getElementById('trainTopic').value = '';
+            document.getElementById('trainDate').value = '';
+        }
+    </script>
+
+</body>
+</html>

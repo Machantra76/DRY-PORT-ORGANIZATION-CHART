@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="km">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ទ្រព្យសម្បត្តិ និងស្តុក - Asset, Stock & Inventory Management</title>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Kantumruy Pro', sans-serif; background-color: #f0f4f8; margin: 0; padding: 30px; color: #334155; }
+        .container { max-width: 1100px; margin: 0 auto; background: white; padding: 35px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+        .back-btn { display: inline-block; margin-bottom: 20px; text-decoration: none; background: #2a5298; color: white; padding: 8px 16px; border-radius: 6px; font-size: 14px; transition: background 0.3s; }
+        .back-btn:hover { background: #1e3c72; }
+        h1 { color: #1e3c72; margin: 0; font-size: 26px; }
+        .eng-sub { color: #64748b; font-size: 14px; text-transform: uppercase; margin-top: 5px; font-weight: 600; letter-spacing: 0.5px; }
+        
+        .section-box { margin-top: 25px; padding: 25px; background: #f8fafc; border-radius: 8px; border: 1px solid #e2e8f0; }
+        .section-box h3 { margin-top: 0; color: #1e3c72; font-size: 18px; border-bottom: 2px solid #cbd5e1; padding-bottom: 8px; }
+        
+        form { display: grid; gap: 15px; margin-top: 15px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        label { font-weight: 600; font-size: 14px; color: #1e3c72; }
+        input, select { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: 'Kantumruy Pro', sans-serif; font-size: 14px; box-sizing: border-box; }
+        button.submit-btn { background: #10b981; color: white; border: none; padding: 12px 20px; border-radius: 6px; cursor: pointer; font-weight: 600; font-family: 'Kantumruy Pro', sans-serif; font-size: 15px; transition: background 0.3s; }
+        button.submit-btn:hover { background: #059669; }
+
+        .filter-section { display: grid; grid-template-columns: 1fr 1fr auto auto; gap: 10px; margin-bottom: 15px; align-items: flex-end; }
+        
+        table { width: 100%; border-collapse: collapse; margin-top: 15px; background: white; border-radius: 6px; overflow: hidden; border: 1px solid #cbd5e1; }
+        th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 14px; }
+        th { background: #1e3c72; color: white; font-weight: 600; }
+        tr:hover { background: #f1f5f9; }
+
+        .badge-status { background: #d1fae5; color: #065f46; padding: 4px 8px; border-radius: 4px; font-size: 12px; font-weight: 600; }
+        .footer-note { margin-top: 25px; font-size: 13px; color: #64748b; border-top: 1px solid #e2e8f0; padding-top: 15px; }
+
+        @media print {
+            .back-btn, .section-box:first-of-type, .filter-section, .footer-note { display: none; }
+            body { background: white; padding: 0; }
+            .container { box-shadow: none; padding: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <a href="/" class="back-btn">&larr; ត្រឡប់ទៅ Dashboard វិញ (Back to Dashboard)</a>
+        
+        <h1>ទ្រព្យសម្បត្តិ និងស្តុក</h1>
+        <div class="eng-sub">Asset, Stock & Inventory Management</div>
+        
+        <!-- ១. Form សម្រាប់បន្ថែមសម្ភារៈ ឬទ្រព្យសម្បត្តិថ្មី -->
+        <div class="section-box">
+            <h3>បន្ថែមសម្ភារៈ ឬទ្រព្យសម្បត្តិថ្មី (Add New Asset / Stock Item)</h3>
+            <form id="inventoryForm">
+                <div class="form-row">
+                    <div>
+                        <label>លេខកូដសម្ភារៈ (Item Code):</label>
+                        <input type="text" id="item_code" required placeholder="ឧ. AST-001">
+                    </div>
+                    <div>
+                        <label>ឈ្មោះសម្ភារៈ/ទ្រព្យសម្បត្តិ (Item Name):</label>
+                        <input type="text" id="item_name" required placeholder="ឧ. កុំព្យូទ័រយួរដៃ Dell">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>ប្រភេទ (Category):</label>
+                        <select id="category" required>
+                            <option value="">-- ជ្រើសរើសប្រភេទ --</option>
+                            <option value="IT Equipment">សម្ភារៈ IT & បច្ចេកវិទ្យា</option>
+                            <option value="Office Furniture">រដ្ឋបាល និងសង្ហារឹម</option>
+                            <option value="Warehouse Stock">ស្តុកទំនិញ/ឃ្លាំង</option>
+                            <option value="Tools & Equipment">ឧបករណ៍ជាង/ប្រតិបត្តិការ</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label>បរិមាណ (Quantity):</label>
+                        <input type="number" id="quantity" required min="1" placeholder="ឧ. 10">
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div>
+                        <label>ឯកតា (Unit):</label>
+                        <input type="text" id="unit" required placeholder="ឧ. គ្រឿង, ឈុត">
+                    </div>
+                    <div>
+                        <label>ស្ថានភាព (Status):</label>
+                        <select id="status">
+                            <option value="Available">មានក្នុងស្តុក (Available)</option>
+                            <option value="In Use">កំពុងប្រើប្រាស់ (In Use)</option>
+                            <option value="Maintenance">កំពុងជួសជុល (Maintenance)</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div style="grid-column: span 2;">
+                        <label>អ្នកកាន់កាប់ ឬទីតាំងរក្សាទុក (Holder / Location):</label>
+                        <input type="text" id="holder_or_location" placeholder="ឧ. ផ្នែករដ្ឋបាល / បុគ្គលិក សុខ សុភា">
+                    </div>
+                </div>
+                <button type="submit" class="submit-btn">រក្សាទុកសម្ភារៈ (Save Item)</button>
+            </form>
+        </div>
+
+        <!-- ២. តារាងបង្ហាញបញ្ជីទ្រព្យសម្បត្តិ និងស្តុក -->
+        <div class="section-box">
+            <h3>បញ្ជីសារពើភណ្ឌ និងស្តុកប្រចាំថ្ងៃ (Asset & Inventory List)</h3>
+            
+            <div class="filter-section">
+                <div>
+                    <label style="font-size: 12px; color: #64748b;">ស្វែងរក (Search Code/Name/Holder):</label>
+                    <input type="text" id="searchInput" placeholder="ស្វែងរក...">
+                </div>
+                <div>
+                    <label style="font-size: 12px; color: #64748b;">ចម្រាញ់តាមប្រភេទ (Category):</label>
+                    <select id="categoryFilter">
+                        <option value="">-- ទាំងអស់ --</option>
+                        <option value="IT Equipment">សម្ភារៈ IT & បច្ចេកវិទ្យា</option>
+                        <option value="Office Furniture">រដ្ឋបាល និងសង្ហារឹម</option>
+                        <option value="Warehouse Stock">ស្តុកទំនិញ/ឃ្លាំង</option>
+                        <option value="Tools & Equipment">ឧបករណ៍ជាង/ប្រតិបត្តិការ</option>
+                    </select>
+                </div>
+                <div style="display: flex; gap: 5px;">
+                    <button onclick="loadInventory()" style="background: #2563eb; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; height: 41px;">ស្វែងរក</button>
+                    <button onclick="window.print()" style="background: #0ea5e9; color: white; border: none; padding: 10px 15px; border-radius: 6px; cursor: pointer; font-weight: 600; height: 41px;" title="Print ឬ Save ជា PDF">🖨️ PDF</button>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>កូដ (Code)</th>
+                        <th>ឈ្មោះសម្ភារៈ (Item Name)</th>
+                        <th>ប្រភេទ (Category)</th>
+                        <th>បរិមាណ (Qty)</th>
+                        <th>ស្ថានភាព (Status)</th>
+                        <th>អ្នកកាន់កាប់/ទីតាំង (Holder/Location)</th>
+                    </tr>
+                </thead>
+                <tbody id="inventoryTableBody">
+                    <!-- ទិន្នន័យទាញមកបង្ហាញទីនេះ -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer-note">
+            <p><strong>ចំណាំ៖</strong> ទំព័រនេះប្រើប្រាស់សម្រាប់គ្រប់គ្រងទ្រព្យសកម្ម គ្រឿងបរិក្ខារ និងស្តុកបម្រុងក្នុងឃ្លាំងតភ្ជាប់ជាមួយ PostgreSQL Database។</p>
+        </div>
+    </div>
+
+    <script>
+        async function loadInventory() {
+            const search = document.getElementById('searchInput').value;
+            const category = document.getElementById('categoryFilter').value;
+
+            let url = '/api/inventory?';
+            if (search) url += `search=${encodeURIComponent(search)}&`;
+            if (category) url += `category=${encodeURIComponent(category)}`;
+
+            try {
+                const response = await fetch(url);
+                const data = await response.json();
+                
+                const tbody = document.getElementById('inventoryTableBody');
+                tbody.innerHTML = '';
+                
+                if (data.length === 0) {
+                    tbody.innerHTML = '<tr><td colspan="6" style="text-align: center; color: #64748b;">មិនទាន់មានទិន្នន័យសម្ភារៈ ឬស្តុកនៅឡើយទេ</td></tr>';
+                    return;
+                }
+
+                data.forEach(item => {
+                    const row = `<tr>
+                        <td><strong>${item.item_code}</strong></td>
+                        <td>${item.item_name}</td>
+                        <td>${item.category}</td>
+                        <td>${item.quantity} ${item.unit}</td>
+                        <td><span class="badge-status">${item.status}</span></td>
+                        <td>${item.holder_or_location || '-'}</td>
+                    </tr>`;
+                    tbody.innerHTML += row;
+                });
+            } catch (err) {
+                console.error('Error loading inventory:', err);
+            }
+        }
+
+        document.getElementById('inventoryForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const item_code = document.getElementById('item_code').value;
+            const item_name = document.getElementById('item_name').value;
+            const category = document.getElementById('category').value;
+            const quantity = document.getElementById('quantity').value;
+            const unit = document.getElementById('unit').value;
+            const status = document.getElementById('status').value;
+            const holder_or_location = document.getElementById('holder_or_location').value;
+
+            try {
+                const response = await fetch('/api/inventory', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ item_code, item_name, category, quantity, unit, status, holder_or_location })
+                });
+
+                const result = await response.json();
+                if (response.ok) {
+                    alert('បានរក្សាទុកសម្ភារៈដោយជោគជ័យ!');
+                    document.getElementById('inventoryForm').reset();
+                    loadInventory();
+                } else {
+                    alert('កំហុស៖ ' + (result.error || 'មិនអាចរក្សាទុកបានទេ'));
+                }
+            } catch (err) {
+                console.error('Error submitting inventory:', err);
+            }
+        });
+
+        loadInventory();
+    </script>
+
+</body>
+</html>
